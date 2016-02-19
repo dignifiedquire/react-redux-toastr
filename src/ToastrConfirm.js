@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import cn from 'classnames';
 import CSSCore from 'fbjs/lib/CSSCore';
 import {onCSSTransitionEnd} from './utils';
 import Button from './Button';
@@ -9,8 +8,8 @@ export default class ToastrConfirm extends Component {
 
   static propTypes = {
     confirm: PropTypes.object.isRequired,
-    okText: PropTypes.string,
-    cancelText: PropTypes.string
+    confirmOptions: PropTypes.object.isRequired,
+    hideConfirm: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -19,7 +18,6 @@ export default class ToastrConfirm extends Component {
 
   componentDidUpdate() {
     this.isHiding = false;
-
     if (this.props.confirm.show) {
       this._setTransition(true);
     }
@@ -72,20 +70,22 @@ export default class ToastrConfirm extends Component {
   };
 
   render() {
-    const {okText, cancelText} = this.props;
-    const classes = cn('confirm-holder', {active: this.props.confirm.show});
+    const {confirmOptions, confirm} = this.props;
     return (
-      <div className={classes}>
+      <div>
+        {confirm.show &&
+        <div className="confirm-holder">
           <div className="confirm animated" ref={(ref) => this.confirm = ref}>
-            <div className="message">{this.props.confirm.message}</div>
+            <div className="message">{confirm.message}</div>
             <Button
               className="ok"
-              onClick={e => this.handleConfirmClick(e)}>{okText}</Button>
+              onClick={e => this.handleConfirmClick(e)}>{confirmOptions.okText}</Button>
             <Button
               className="cancel"
-              onClick={e => this.handleCancelClick(e)}>{cancelText}</Button>
+              onClick={e => this.handleCancelClick(e)}>{confirmOptions.cancelText}</Button>
           </div>
-        <div className="shadow animated" ref={(ref) => this.confirmShadow = ref}></div>
+          <div className="shadow animated" ref={(ref) => this.confirmShadow = ref}></div>
+        </div>}
       </div>
     );
   }

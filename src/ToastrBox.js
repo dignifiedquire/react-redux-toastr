@@ -23,7 +23,7 @@ export default class ToastrBox extends Component {
 
   componentDidMount() {
     const {item} = this.props;
-    const timeOut = config.get('timeOut');
+    const timeOut = config.timeOut;
     const time = item.options.timeOut || timeOut;
 
     this._setIntervalId(setTimeout(this._removeToastr, time));

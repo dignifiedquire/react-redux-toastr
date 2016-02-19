@@ -53,7 +53,7 @@ export function error(...toastr) {
   };
 }
 
-export function confirm(message, options) {
+export function showConfirm(message, options) {
   return {
     type: SHOW_CONFIRM,
     payload: {
