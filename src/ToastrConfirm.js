@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import cn from 'classnames';
 import CSSCore from 'fbjs/lib/CSSCore';
-import {onCSSTransitionEnd, returnFuncFromObj} from './utils';
+import {onCSSTransitionEnd} from './utils';
 import Button from './Button';
 
 export default class ToastrConfirm extends Component {
@@ -27,14 +27,18 @@ export default class ToastrConfirm extends Component {
 
   handleConfirmClick = () => {
     const {options} = this.props.confirm;
-    returnFuncFromObj(options, 'onOk');
     this._setTransition();
+    if (options.onOk) {
+      options.onOk();
+    }
   };
 
   handleCancelClick = () => {
     const {options} = this.props.confirm;
-    returnFuncFromObj(options, 'onCancel');
     this._setTransition();
+    if (options.onCancel) {
+      options.onCancel();
+    }
   };
 
   _setTransition = (add) => {

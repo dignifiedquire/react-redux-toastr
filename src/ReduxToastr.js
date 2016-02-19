@@ -8,7 +8,7 @@ import * as tActions        from './actions';
 import {EE}                 from './toastrEmitter';
 import config               from './config';
 
-import {checkPositionName, hasProperty} from './utils.js';
+import {hasProperty} from './utils.js';
 
 @connect(state => ({
   toastr: state.toastr
@@ -78,9 +78,8 @@ export default class ReduxToastr extends Component {
   };
 
   render() {
-    const toastrPosition = checkPositionName(this.props.position);
-    const classes = classnames('redux-toastr', toastrPosition);
-    const {toastr, confirm} = this.props;
+    const {toastr, confirm, remove, position} = this.props;
+    const classes = classnames('redux-toastr', position);
 
     const confirmOkText = hasProperty(confirm, 'okText') ? confirm.okText : 'ok';
     const confirmCancelText = hasProperty(confirm, 'cancelText') ? confirm.cancelText : 'cancel';
@@ -95,7 +94,7 @@ export default class ReduxToastr extends Component {
     return (
       <div className={classes}>
         <ToastrConfirm {...confirmProps}/>
-        {toastr.toastrs.map(item => <ToastrBox key={item.id} item={item} {...this.props}/>)}
+        {toastr.toastrs.map(item => <ToastrBox key={item.id} item={item} remove={remove}/>)}
       </div>
     );
   }

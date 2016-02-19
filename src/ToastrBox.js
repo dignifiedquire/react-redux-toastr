@@ -9,7 +9,8 @@ export default class ToastrBox extends Component {
   static displayName = 'ToastrBox';
 
   static propTypes = {
-    toastr: PropTypes.object.isRequired
+    item: PropTypes.object.isRequired,
+    remove: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -116,8 +117,8 @@ export default class ToastrBox extends Component {
     return (
       <div
         className={classes}
-        onMouseEnter={this.mouseEnter}
-        onMouseLeave={this.mouseLeave}
+        onMouseEnter={() => this.mouseEnter()}
+        onMouseLeave={() => this.mouseLeave()}
         onClick={() => this.handleRemoveItem()}
         ref={(ref) => this.toastrBox = ref}>
 
