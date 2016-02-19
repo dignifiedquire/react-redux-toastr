@@ -59,18 +59,16 @@ export default class ToastrBox extends Component {
 
   _onAnimationComplite = () => {
     const {remove, item} = this.props;
-    const {options} = item;
+    const {onHideComplete, onShowComplete} = item.options;
 
     if (this.isHiding) {
       this._setIsHiding(false);
       remove(item.id);
-      if (options.onHideComplete) {
-        options.onHideComplete();
+      if (onHideComplete) {
+        onHideComplete();
       }
-    } else if (!this.isHiding) {
-      if (options.onShowComplete) {
-        options.onShowComplete();
-      }
+    } else if (!this.isHiding && onShowComplete) {
+      onShowComplete();
     }
   };
 
