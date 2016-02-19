@@ -41,12 +41,7 @@ export default class ReduxToastr extends Component {
 
   componentDidMount() {
     const {clean, showConfirm, addToastrAction} = this.props;
-
-    const confirm = (obj) => {
-       this.props.showConfirm(obj.message, obj.options);
-    };
-
-    EE.on('toastr/confirm', confirm);
+    EE.on('toastr/confirm', showConfirm);
     EE.on('add/toastr', addToastrAction);
     EE.on('clean/toastr', clean);
   }
