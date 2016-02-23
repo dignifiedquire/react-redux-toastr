@@ -8,9 +8,7 @@ export default class ToastrConfirm extends Component {
   static displayName = 'ToastrConfirm';
 
   static propTypes = {
-    confirm: PropTypes.object.isRequired,
-    okText: PropTypes.string,
-    cancelText: PropTypes.string
+    confirm: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -72,19 +70,19 @@ export default class ToastrConfirm extends Component {
   };
 
   render() {
-    const {okText, cancelText} = this.props;
-    const classes = cn('confirm-holder', {active: this.props.confirm.show});
+    const {confirm, confirmOptions} = this.props;
+    const classes = cn('confirm-holder', {active: confirm.show});
     return (
       <div className={classes}>
-          <div className="confirm animated" ref={(ref) => this.confirm = ref}>
-            <div className="message">{this.props.confirm.message}</div>
-            <Button
-              className="ok"
-              onClick={e => this.handleConfirmClick(e)}>{okText}</Button>
-            <Button
-              className="cancel"
-              onClick={e => this.handleCancelClick(e)}>{cancelText}</Button>
-          </div>
+        <div className="confirm animated" ref={(ref) => this.confirm = ref}>
+          <div className="message">{confirm.message}</div>
+          <Button
+            className="ok"
+            onClick={e => this.handleConfirmClick(e)}>{confirmOptions.okText}</Button>
+          <Button
+            className="cancel"
+            onClick={e => this.handleCancelClick(e)}>{confirmOptions.cancelText}</Button>
+        </div>
         <div className="shadow animated" ref={(ref) => this.confirmShadow = ref}></div>
       </div>
     );
