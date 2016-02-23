@@ -112,8 +112,7 @@ export default class ToastrBox extends Component {
 
   render() {
     const {item} = this.props;
-    const classes = classnames('toastr', 'animated', item.type);
-    const icons = classnames('icon-holder', item.options.icon);
+    const classes = classnames('toastr', 'animated', item.type, item.options.icon);
     return (
       <div
         className={classes}
@@ -121,8 +120,6 @@ export default class ToastrBox extends Component {
         onMouseLeave={() => this.mouseLeave()}
         onClick={() => this.handleRemoveItem()}
         ref={(ref) => this.toastrBox = ref}>
-
-        <div className={icons}></div>
         <div className="message-holder">
           {item.title && <div className="title">{item.title}</div>}
           <div className="message">{item.message}</div>
