@@ -7,23 +7,13 @@ export function createReducer(initialState, fnMap) {
   };
 }
 
-export function checkPositionName(name) {
-  const positions = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
-  const isValidName = positions.indexOf(name);
-
-  if (isValidName > -1) {
-    return name;
-  }
-  return positions[1];
-}
-
 export function mapToToastrMessage(type, array) {
   const obj = {};
   obj.type = type;
   obj.options = {};
 
   const options = array.filter(item => {
-    return item.icon || item.timeOut || item.onShowComplete || item.onHideComplete || item.icon;
+    return item instanceof Object;
   })[0];
 
   if (options) {
@@ -57,13 +47,6 @@ export function mapToIcon(type) {
     default:
       return type;
   }
-}
-
-export function hasProperty(obj, property) {
-  if (obj == null) {
-    return false;
-  }
-  return typeof obj[property] !== 'undefined';
 }
 
 export function guid() {
